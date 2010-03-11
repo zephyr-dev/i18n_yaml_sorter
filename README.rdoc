@@ -6,7 +6,7 @@ As your rails i18n app grows, it becomes very boring to keep all locale files in
 
 If you try deserializing/serializing the yml files using the YAML parser, to get them in the same order, you will figure that your strings in the ymls will be "standarized" to whatever the YAML generator prefers (strings in double quotes). It will also mess up your indentation (and use its defaults). 
 
-i18n_yaml_sorter to the rescue! Add it to Textmate and you will be able to sort your yaml file in nanoseconds. Your file will look pristine, and remain human edited.
+i18n_yaml_sorter to the rescue! Add it to Textmate and you will be able to sort your yaml file in nanoseconds. Your file will look pristine, like it was human edited.
 
 == Example
 
