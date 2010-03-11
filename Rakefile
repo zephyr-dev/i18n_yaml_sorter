@@ -5,7 +5,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "i18n_yaml_sorter"
-    gem.summary = %Q{ A I18n YAML sorter that will not screw up your text formating }
+    gem.summary = %Q{ A I18n YAML deep sorter that will keep your locales organized and not screw up your text formating }
     gem.description = %Q{ Allows you to deep sort YAML files that are mainly composed of 
       nested hashes and string values. Great to sort your rails I18n YAML files. You can easily
       add it to a textmate bundle, rake task, or just use the included regular comand line tool. 
