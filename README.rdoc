@@ -12,72 +12,72 @@ i18n_yaml_sorter to the rescue! Add it to Textmate and you will be able to sort 
 
 This:
 
-    a_one: > 
-      This is another way 
-      of inputing text. It
-      will squish whitespace
-      when deserialized
-      (like HTML does).
-    b_two:
-      a_1: Simple most common text
-      b_two: |
-        This is the best way of
-        inputing large chunks of text
-        in the YAML files.
-
-        Note that this format keeps blank
-        lines in the same indentation.
-     d_four: "We can also 
-        use the boring \"
-        accross multiple lines 
-        but have to escape then."
-      c_three:
-          a: "Marcelo"
-          "b": Bernardo
-          c_3:
-              klass: Lucas
-              unify: Luiz
-          d_4: Rafael
-          # Your comments will be untouched
-          # but will be bound to the element
-          # on top of them (d_4 here).
-      e_five: Or you can do it 
-        like that as well, it also works.
+  b_two:
+    a_1: Simple most common text
+    b_two: |
+      This is the best way of
+      inputing large chunks of text
+      in the YAML files.
+    
+      Note that this format keeps blank
+      lines in the same indentation.
+    d_four: "We can also 
+      use the boring \"
+      accross multiple lines 
+      but have to escape then."
+    e_five: Or you can do it 
+      like that as well, it also works.
+    c_three:
+        a: "Marcelo"
+        d_4: Rafael
+        # Your comments will be untouched
+        # but will be bound to the element
+        # on top of them (d_4 here).
+        "b": Bernardo
+        c_3:
+            unify: Luiz
+            klass: Lucas
+  a_one: > 
+    This is another way 
+    of inputing text. It
+    will squish whitespace
+    when deserialized
+    (like HTML does).
 
 
 Becomes:
 
-    a_one: > 
-      This is another way 
-      of inputing text. It
-      will squish whitespace
-      when deserialized
-      (like HTML does).
-    b_two:
-      a_1: Simple most common text
-      b_two: |
-        This is the best way of
-        inputing large chunks of text
-        in the YAML files.
-    
-        Note that this format keeps blank
-        lines in the same indentation.
-     d_four: "We can also 
-        use the boring \"
-        accross multiple lines 
-        but have to escape then."
-      c_three:
-          a: "Marcelo"
-          "b": Bernardo
-          c_3:
-              klass: Lucas
-              unify: Luiz
-          d_4: Rafael
-          # Your comments will be untouched
-          # but will be bound to the element
-          # on top of them (d_4 here).
-      e_five: Or you can do it 
-        like that as well, it also works.
+  a_one: > 
+    This is another way 
+    of inputing text. It
+    will squish whitespace
+    when deserialized
+    (like HTML does).
+  b_two:
+    a_1: Simple most common text
+    b_two: |
+      This is the best way of
+      inputing large chunks of text
+      in the YAML files.
+
+      Note that this format keeps blank
+      lines in the same indentation.
+   d_four: "We can also 
+      use the boring \"
+      accross multiple lines 
+      but have to escape then."
+    c_three:
+        a: "Marcelo"
+        "b": Bernardo
+        c_3:
+            klass: Lucas
+            unify: Luiz
+        d_4: Rafael
+        # Your comments will be untouched
+        # but will be bound to the element
+        # on top of them (d_4 here).
+    e_five: Or you can do it 
+      like that as well, it also works.
 
 == Instaling
 
@@ -85,7 +85,7 @@ Easy, just install the gem:
 
     $ gem install i18n_yaml_sorter
 
-Then the +sort_yaml+ command line tool will be available. If you prefer using Ruby (in your rakes, etc), use the simple I18nYamlSorter class.
+Then the +sort_yaml+ command line tool will be available. If you prefer using Ruby (in your rakes, etc), use the simple +I18nYamlSorter+ class.
 
 == Textmate Bundle
 
@@ -113,7 +113,7 @@ TODO: Write the code here once I have time!
 
 == Future improvements (Forks Welcome!)
 
-* Make sort_yaml command line smart, take directories, etc
+* Make +sort_yaml+ smart, take directories, etc
 * Make it a "gem plugin" so it will add rake tasks that will sort all yml files in your +I18n.load_path+ (make it configurable, since we usually don't want to sort all locale yamls, like the rails default ones). 
 * Refactoring: code is still ugly, but works
 * Gather other existing rails i18n related yaml tools, textmate bundles, etc, make a super gem out of it, and rule the world!
