@@ -10,10 +10,6 @@ b_two:
     Linhas em Branco com tabulação 
     nos strings devem ser preservadas.
     
- d_four: "Somos chatos
-    gostamos de várias linhas\"
-    e ainda usamos escaping 
-    para fuder"
   c_three:
       a: "Marcelo"
       "b": Bernardo
@@ -23,6 +19,10 @@ b_two:
       d_4: Rafael
       # Comentário de muitas
       # linhas (goes with d_4)
+  d_four: "Somos chatos
+    gostamos de várias linhas\"
+    e ainda usamos escaping 
+    para fuder"
   e_five: Prefirimos strings sem
     nenhum tipo de especificação.
   f_six: Dalton
@@ -42,3 +42,19 @@ j_ten: >
   assim, impossível aturar!
 k_eleven: Ronaldo
 "l_other123123": Emilio
+m_13: >
+  Não deve dar problema aqui!
+  Não deve dar problema aqui!
+  Não deve dar problema aqui!
+  Pois às vezes dá.
+n_14: >
+  Não deve dar problema aqui!
+  Pois às vezes dá.
+o_15: |
+  Não deve dar problema aqui!
+  Pois às vezes dá.
+o_15: |
+  Não deve dar problema aqui!
+  Pois às vezes dá.
+p_16: Não deve dar problema aqui!
+  Pois às vezes dá.

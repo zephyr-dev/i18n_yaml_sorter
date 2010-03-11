@@ -17,7 +17,8 @@ class I18nYamlSorter
   
     loop do
     
-      maybe_next_line = @io_input.gets || break
+      maybe_next_line = @read_line_again || @io_input.gets || break
+      @read_line_again = nil
       maybe_next_line.chomp!
 
       #Is it blank? Discard!
@@ -55,12 +56,12 @@ class I18nYamlSorter
         #Append the next lines until we find one that is not indented
         loop do
           content_line = @io_input.gets || break
-          content_line.chomp!
-          this_indentation = content_line.match(/^\s*/)[0] rescue ""
+          processed_line = content_line.chomp
+          this_indentation = processed_line.match(/^\s*/)[0] rescue ""
           if indentation.size < this_indentation.size
-            array.last << content_line.concat("\n")
+            array.last << processed_line.concat("\n")
           else
-            @io_input.seek(-content_line.size, IO::SEEK_CUR) #returns so we can read this line again
+            @read_line_again = content_line
             break
           end
         end
@@ -83,7 +84,10 @@ class I18nYamlSorter
         array << maybe_next_line.concat("\n")
       end
     end  #loop
-  
+    
+    #debug:
+    #puts array.join("$$$$$$$$$$$$$$$$$$$$$$\n")
+    
     array
   end
 
