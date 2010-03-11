@@ -5,12 +5,15 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "i18n_yaml_sorter"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{ A I18n YAML sorter that will not screw up your text formating }
+    gem.description = %Q{ Allows you to deep sort YAML files that are mainly composed of 
+      nested hashes and string values. Great to sort your rails I18n YAML files. You can easily
+      add it to a textmate bundle, rake task, or just use the included regular comand line tool. 
+    }
     gem.email = "berpasan@gmail.com"
-    gem.homepage = "http://github.com/bernardo/i18n_yaml_sorter"
-    gem.authors = ["Bernardo de Pádua"]
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    gem.homepage = "http://github.com/redealumni/i18n_yaml_sorter"
+    gem.authors = ["Bernardo de Pádua"]    
+    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings    
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

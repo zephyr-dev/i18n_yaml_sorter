@@ -1,6 +1,122 @@
 = i18n_yaml_sorter
 
-Description goes here.
+A simple and very limited yaml deep sorter that will not mess up your strings and text values. Made exclusively to sort the yaml commonly used in rails apps, specially i18n. It will not sort arrays, yaml objects. It doesn't use the YAML parser, since it would mess up text, but sorts the lines in the yaml file
+
+As your rails i18n app grows, it becomes very boring to keep all locale files in sync. You have to care about adding all  keys in the same order, in different files, or you will get yourself into a mess and will lose lots of precious time comparing the files in different locales and looking for the appropriate translation keys whenever you want to change something.
+
+If you try deserializing/serializing the yml files using the YAML parser, to get them in the same order, you will figure that your strings in the ymls will be "standarized" to whatever the YAML generator prefers (strings in double quotes). It will also mess up your indentation (and use its defaults). 
+
+i18n_yaml_sorter to the rescue! Add it to Textmate and you will be able to sort your yaml file in nanoseconds. Your file will look pristine, and remain human edited.
+
+== Example
+
+This:
+
+a_one: > 
+  This is another way 
+  of inputing text. It
+  will squish whitespace
+  when deserialized
+  (like HTML does).
+b_two:
+  a_1: Simple most common text
+  b_two: |
+    This is the best way of
+    inputing large chunks of text
+    in the YAML files.
+
+    Note that this format keeps blank
+    lines in the same indentation.
+ d_four: "We can also 
+    use the boring \"
+    accross multiple lines 
+    but have to escape then."
+  c_three:
+      a: "Marcelo"
+      "b": Bernardo
+      c_3:
+          klass: Lucas
+          unify: Luiz
+      d_4: Rafael
+      # Your comments will be untouched
+      # but will be bound to the element
+      # on top of them (d_4 here).
+  e_five: Or you can do it 
+    like that as well, it also works.
+
+
+Becomes:
+
+a_one: > 
+  This is another way 
+  of inputing text. It
+  will squish whitespace
+  when deserialized
+  (like HTML does).
+b_two:
+  a_1: Simple most common text
+  b_two: |
+    This is the best way of
+    inputing large chunks of text
+    in the YAML files.
+    
+    Note that this format keeps blank
+    lines in the same indentation.
+ d_four: "We can also 
+    use the boring \"
+    accross multiple lines 
+    but have to escape then."
+  c_three:
+      a: "Marcelo"
+      "b": Bernardo
+      c_3:
+          klass: Lucas
+          unify: Luiz
+      d_4: Rafael
+      # Your comments will be untouched
+      # but will be bound to the element
+      # on top of them (d_4 here).
+  e_five: Or you can do it 
+    like that as well, it also works.
+
+== Instaling
+
+Easy, just install the gem:
+
+$ gem install i18n_yaml_sorter
+
+Then the +sort_yaml+ command line tool will be available. If you prefer using Ruby (in your rakes, etc), use the simple I18nYamlSorter class.
+
+== Textmate Bundle
+
+Run the Bundle Editor (Bundles > Bundle Editor > Show), and create a new command ( + > New Command ).
+
+Erase the template code and write this command (no more, no less):
+
+sort_yaml
+
+Add a key binding and a scope selector (source.yaml) if you which. Now, when you run this command, the opened yaml file  (or just the part of it that is selected) will be sorted. To edit selected part of the file, make sure it is valid YAML by itself, or your yaml file might be corrupt (you can always Undo if you mess up).
+
+== Command line
+
++sort_yaml+ will operate on STDIN and STDOUT, so sorting an existing yaml file should be as easy as:
+
+$ sort_yaml < in.yml > out.yml
+
+TODO: Add command line arguments parsing and options (so you can, for instance, sort a whole dir of yaml) and inline help.
+
+== Rake task
+
+If you don't use textmate, it should be trivial to add a rake task to sort all the i18n yaml files of a rails app (eg.: in the dir config/locale/ ), using the +sort_yaml+ command. 
+
+TODO: Write the code here once I have time!
+
+== Future improvements (Forks Welcome!)
+
+* Make sort_yaml command line smart, take directories, etc
+* Make it a "gem plugin" so it will add rake tasks that will sort all yml files in your +I18n.load_path+ (make it configurable, since we usually don't want to sort all locale yamls, like the rails default ones). 
+* Gather other existing rails i18n related yaml tools, textmate bundles, etc, make a super gem out of it, and rule the world!
+
 
 == Note on Patches/Pull Requests
  
