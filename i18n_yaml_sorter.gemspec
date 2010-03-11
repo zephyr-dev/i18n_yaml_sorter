@@ -28,15 +28,19 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "bin/sort_yaml",
+     "i18n_yaml_sorter.gemspec",
      "lib/i18n_yaml_sorter.rb",
      "test/helper.rb",
+     "test/in.yml",
+     "test/out.yml",
      "test/test_i18n_yaml_sorter.rb"
   ]
   s.homepage = %q{http://github.com/redealumni/i18n_yaml_sorter}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
-  s.summary = %q{A I18n YAML sorter that will not screw up your text formating}
+  s.summary = %q{A I18n YAML deep sorter that will keep your locales organized and not screw up your text formating}
   s.test_files = [
     "test/helper.rb",
      "test/test_i18n_yaml_sorter.rb"
