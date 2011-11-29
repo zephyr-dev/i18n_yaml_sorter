@@ -19,6 +19,8 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".document",
+    "Gemfile",
+    "Gemfile.lock",
     "LICENSE",
     "README.rdoc",
     "Rakefile",
@@ -26,10 +28,19 @@ Gem::Specification.new do |s|
     "bin/sort_yaml",
     "i18n_yaml_sorter.gemspec",
     "lib/i18n_yaml_sorter.rb",
+    "lib/i18n_yaml_sorter/railtie.rb",
+    "lib/i18n_yaml_sorter/sorter.rb",
+    "lib/tasks/i18n_yaml_sorter.rake",
     "test/helper.rb",
     "test/in.yml",
+    "test/in_rails.yml",
+    "test/in_simple.yml",
     "test/out.yml",
-    "test/test_i18n_yaml_sorter.rb"
+    "test/out_rails.yml",
+    "test/out_simple.yml",
+    "test/test_i18n_yaml_sorter.rb",
+    "textmate/YAML Sort.tmbundle/Commands/Sort YAML.tmCommand",
+    "textmate/YAML Sort.tmbundle/info.plist"
   ]
   s.homepage = "http://github.com/redealumni/i18n_yaml_sorter"
   s.licenses = ["MIT"]
