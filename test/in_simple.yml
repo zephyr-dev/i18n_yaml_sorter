@@ -1,0 +1,28 @@
+pt-BR:
+  # Note how this is a nice way of inputing
+  # paragraphs of text in YAML. 
+  apples: >
+    Maçãs são boas,
+    só não coma 
+    seus iPods!
+  grapes: Não comemos elas.
+  bananas: |
+    Bananas são "legais":
+      - Elas são <b> doces </b>.
+      isto: não é chave
+    
+    Por isto todos gostam de bananas!
+en-US:
+  # Note that our comments are important:
+  # Don't let your yaml sorter delete them!
+  grapes: We dont' eat them.
+  bananas: |
+    Bananas are "nice":
+      - They are <b> sweet </b>.
+      this: not a key  
+    
+    That is why everyone like bananas!
+  apples: >
+    Apples are fine,
+    just don't eat your 
+    iPods!

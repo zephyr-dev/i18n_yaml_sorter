@@ -1,6 +1,38 @@
 #!/usr/bin/env ruby
+require 'optparse'
+
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'i18n_yaml_sorter'
 
-sorter = I18nYamlSorter.new(STDIN)
-puts sorter.sort
+options = {}
+optparse = OptionParser.new do|opts|
+  opts.banner = "Usage: sort_yaml < INPUT > OUTPUT | sort_yaml --install_bundle"
+
+  # Define the options, and what they do
+  options[:install_bundle] = false
+  opts.on( '-i', '--install_bundle', 'Installs TextMate for MAC OS X bundle (named "YAML Sort") in the current user home dir.' ) do
+    options[:install_bundle] = true
+  end
+
+  # This displays the help screen, all programs are
+  # assumed to have this option.
+  opts.on( '-h', '--help', 'Display this screen' ) do
+    puts opts
+    exit
+  end
+end
+
+optparse.parse!
+
+if options[:install_bundle]
+  puts "Installing TextMate Bundle in your home dir (~/Library/Application\\ Support/TextMate/Bundles/)..." 
+  puts
+  system "mkdir -p ~/Library/Application\ Support/TextMate/Bundles"
+  system "cp -Rfv #{File.join(File.dirname(__FILE__), '..', 'textmate', 'YAML\ Sort.tmbundle')} ~/Library/Application\\ Support/TextMate/Bundles/ "
+  puts
+  puts "Reloading TextMate bundles..." 
+  system "osascript -e 'tell app \"TextMate\" to reload bundles'"
+else
+  sorter = I18nYamlSorter::Sorter.new(STDIN)
+  puts sorter.sort
+end

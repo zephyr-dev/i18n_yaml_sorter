@@ -1,14 +1,108 @@
 = i18n_yaml_sorter
 
-A simple and very limited yaml deep sorter that will not mess up your strings and text values. Made exclusively to sort the yaml commonly used in rails apps, specially i18n. It will not sort arrays, yaml objects. It doesn't use the YAML parser, since it would mess up text, but sorts the lines in the yaml file
 
-As your rails i18n app grows, it becomes very boring to keep all locale files in sync. You have to care about adding all  keys in the same order, in different files, or you will get yourself into a mess and will lose lots of precious time comparing the files in different locales and looking for the appropriate translation keys whenever you want to change something.
+A simple YAML Hash deep sorter that will not mess with the way your strings and text values were written. Made exclusively to sort the YAML Hash keys commonly used in the i18n gem and Rails' apps. It will not sort arrays, YAML objects, etc.
 
-If you try deserializing/serializing the yml files using the YAML parser, to get them in the same order, you will figure that your strings in the ymls will be "standarized" to whatever the YAML generator prefers (strings in double quotes). It will also mess up your indentation (and use its defaults). 
+It doesn't parse the YAML and dumps it again, it just sorts the lines, it's pure and simple magic! That way, it guarantees you can keep using your nice YAML constructs to create large text values, as we usually do in i18n files.
 
-i18n_yaml_sorter to the rescue! Add it to Textmate and you will be able to sort your yaml file in nanoseconds. Your file will look pristine, like it was human edited.
+It includes a simple TextMate bundle and a rake task for Rails, so you can keep all those .yml files sorted in no time.
 
-== Example
+== Motivation
+
+As your rails i18n app grows, it becomes very boring to keep all locale files in several languages in sync. You have to add all keys in the same order, in different files, or you will get yourself into a mess and will lose precious time comparing the files in different locales and looking for the appropriate translation keys whenever you want to change something or see if a key is missing in a given locale.
+
+If you try deserializing/serializing the yml files using the YAML parser, to get them in the same order, you will figure that your strings in the YAMLS will be "standarized" to whatever the YAML generator prefers (strings in double quotes). It will also mess up your indentation (and use its defaults) and remove your comments. 
+
+i18n_yaml_sorter to the rescue! Add it to TextMate and you will be able to sort your yaml file in nanoseconds. Your file will look pristine, like it was human edited. 
+
+Tested in ruby-1.8.7-p334 and ruby-1.9.2-p290, should work everywhere since it is so simple.
+
+== Simple Example
+This: 
+
+  pt-BR:
+    # Note how this is a nice way of inputing
+    # paragraphs of text in YAML. 
+    apples: >
+      Maçãs são boas,
+      só não coma 
+      seus iPods!
+    grapes: Não comemos elas.
+    bananas: |
+      Bananas são "legais":
+        - Elas são <b> doces </b>.
+        isto: não é chave
+    
+      Por isto todos gostam de bananas!
+  en-US:
+    # Note that our comments are important:
+    # Don't let your yaml sorter delete them!
+    grapes: We dont' eat them.
+    bananas: |
+      Bananas are "nice":
+        - They are <b> sweet </b>.
+        this: not a key  
+    
+      That is why everyone like bananas!
+    apples: >
+      Apples are fine,
+      just don't eat your 
+      iPods!
+
+          
+Becomes:
+
+  en-US:
+    # Note that our comments are important:
+    # Don't let your yaml sorter delete them!
+    apples: >
+      Apples are fine,
+      just don't eat your 
+      iPods!
+    bananas: |
+      Bananas are "nice":
+        - They are <b> sweet </b>.
+        this: not a key  
+    
+      That is why everyone like bananas!
+    grapes: We dont' eat them.
+  pt-BR:
+    # Note how this is a nice way of inputing
+    # paragraphs of text in YAML. 
+    apples: >
+      Maçãs são boas,
+      só não coma 
+      seus iPods!
+    bananas: |
+      Bananas são "legais":
+        - Elas são <b> doces </b>.
+        isto: não é chave
+    
+      Por isto todos gostam de bananas!
+    grapes: Não comemos elas.
+
+      
+What if you use some method that employ's Ruby's YAML library to help
+do the task for you? You would get an output like that (note it removes your comments):
+
+  en-US: 
+    apples: Apples are fine, just don't eat your  iPods!
+    bananas: |
+      Bananas are "nice":
+        - They are <b> sweet </b>.
+        this: not a key  
+    
+      That is why everyone like bananas!
+
+    grapes: We dont' eat them.
+  pt-BR: 
+    apples: "Ma\xC3\xA7\xC3\xA3s s\xC3\xA3o boas, s\xC3\xB3 n\xC3\xA3o coma  seus iPods!\n"
+    bananas: "Bananas s\xC3\xA3o \"legais\":\n  - Elas s\xC3\xA3o <b> doces </b>.\n  isto: n\xC3\xA3o \xC3\xA9 chave\n\n\
+      Por isto todos gostam de bananas!\n"
+    grapes: "N\xC3\xA3o comemos elas."
+
+
+== Example with different YAML strings
 
 This:
 
@@ -23,7 +117,7 @@ This:
       lines in the same indentation.
     d_four: "We can also 
       use the boring \"
-      accross multiple lines 
+      across multiple lines 
       but have to escape then."
     e_five: Or you can do it 
       like that as well, it also works.
@@ -64,7 +158,7 @@ Becomes:
       lines in the same indentation.
    d_four: "We can also 
       use the boring \"
-      accross multiple lines 
+      across multiple lines 
       but have to escape then."
     c_three:
         a: "Marcelo"
@@ -79,7 +173,7 @@ Becomes:
     e_five: Or you can do it 
       like that as well, it also works.
 
-== Instaling
+== Installing
 
 Easy, just install the gem:
 
@@ -89,21 +183,33 @@ Then the +sort_yaml+ command line tool will be available. If you prefer using Ru
 
 == Textmate Bundle
 
-Run the Bundle Editor (Bundles > Bundle Editor > Show), and create a new command ( + > New Command ).
+Run this command in the Terminal to install it:
 
-Erase the template code and write this command (no more, no less):
+  $ sort_yaml -i
 
-    sort_yaml
+A TextMate bundle, named "Yaml Sort" will be installed in your user home path. Press "Shift+Command+S" or use the Bundles menu to invoke it. The opened yaml file  (or just the part of it that is selected) will be sorted. To edit the selected part of the file, make sure it is valid YAML by itself, or your yaml file might be corrupted (you can always Undo if you mess up).
 
-Add a key binding and a scope selector (source.yaml) if you which. Now, when you run this command, the opened yaml file  (or just the part of it that is selected) will be sorted. To edit selected part of the file, make sure it is valid YAML by itself, or your yaml file might be corrupt (you can always Undo if you mess up).
+== Rails Rake Taks
 
-== Command line
+Declare it as a dependency in your Gemfile, under the development group:
+
+  gem 'i18n_yaml_sorter', :group => :development
+
+Run bundle install under your Rails' app:
+
+  $ bundle install
+  
+Now run the rake task under your Rails' app to sort all the i18n files in your +config/locales+ dir:
+  
+  $rake i18n:sort
+
+== Command line Input / Output
 
 +sort_yaml+ will operate on STDIN and STDOUT, so sorting an existing yaml file should be as easy as:
 
     $ sort_yaml < in.yml > out.yml
 
-TODO: Add command line arguments parsing and options (so you can, for instance, sort a whole dir of yaml) and inline help.
+TODO: Add command line arguments parsing and options, so you can, for instance, sort a whole dir of yaml files.
 
 == Rake task
 
@@ -111,12 +217,15 @@ If you don't use textmate, it should be trivial to add a rake task to sort all t
 
 TODO: Write the code here once I have time!
 
+== Changelog
+
+* 0.2 - Improves gem, tests, adds TextMate Bundle, adds Rails' Rake task.
+* 0.1 - Initial release
+
 == Future improvements (Forks Welcome!)
 
 * Make +sort_yaml+ smart, take directories, etc
-* Make it a "gem plugin" so it will add rake tasks that will sort all yml files in your +I18n.load_path+ (make it configurable, since we usually don't want to sort all locale yamls, like the rails default ones). 
-* Refactoring: code is still ugly, but works
-* Gather other existing rails i18n related yaml tools, textmate bundles, etc, make a super gem out of it, and rule the world!
+* Refactoring: internal code is still a bit ugly, but works
 
 == Note on Patches/Pull Requests
  
@@ -130,4 +239,4 @@ TODO: Write the code here once I have time!
 
 == Copyright
 
-Copyright (c) 2010 Bernardo de Pádua. See LICENSE for details.
+Copyright (c) 2010-2011 Bernardo de Pádua. MIT License (See LICENCE).
