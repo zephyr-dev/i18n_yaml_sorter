@@ -9,13 +9,13 @@ It includes a simple TextMate bundle and a rake task for Rails, so you can keep 
 
 == Motivation
 
-As your rails i18n app grows, it becomes very boring to keep all locale files in several languages in sync. You have to add all keys in the same order, in different files, or you will get yourself into a mess and will lose precious time comparing the files in different locales and looking for the appropriate translation keys whenever you want to change something or see if a key is missing in a given locale.
+As your rails i18n app grows, it becomes very boring to keep all locale files in sync. You have to add all keys in the same order, in different languages, or you will get yourself into a mess and will lose precious time comparing the files in different locales and looking for the appropriate translation keys whenever you want to change something or see if a key is missing.
 
-If you try deserializing/serializing the yml files using the YAML parser, to get them in the same order, you will figure that your strings in the YAMLS will be "standarized" to whatever the YAML generator prefers (strings in double quotes). It will also mess up your indentation (and use its defaults) and remove your comments. 
+If you try deserializing/serializing the yml files using the YAML parser, to get them in the same order, you will figure that your strings in the YAMLs will be "standarized" to whatever the YAML generator prefers (eg.: strings in double quotes, character escapes, etc). It will also mess up your indentation (and use its defaults) and remove your comments. 
 
 i18n_yaml_sorter to the rescue! Add it to TextMate and you will be able to sort your yaml file in nanoseconds. Your file will look pristine, like it was human edited. 
 
-Tested in ruby-1.8.7-p334 and ruby-1.9.2-p290, should work everywhere since it is so simple.
+Tested in ruby-1.8.7-p334 and ruby-1.9.2-p290, should work everywhere since it is so simple. Rake task works in Rails 3.1, not sure about older versions though (patch updates are welcome, if you find it doesn't). 
 
 == Simple Example
 This: 
@@ -102,7 +102,7 @@ do the task for you? You would get an output like that (note it removes your com
     grapes: "N\xC3\xA3o comemos elas."
 
 
-== Example with different YAML strings
+== More complex example
 
 This:
 
@@ -179,7 +179,7 @@ Easy, just install the gem:
 
     $ gem install i18n_yaml_sorter
 
-Then the +sort_yaml+ command line tool will be available. If you prefer using Ruby (in your rakes, etc), use the simple +I18nYamlSorter+ class.
+Then the +sort_yaml+ command line tool will be available. If you prefer using Ruby (in your rakes, etc), use the simple +I18nYamlSorter::Sort+ class.
 
 == Textmate Bundle
 
@@ -191,7 +191,7 @@ A TextMate bundle, named "Yaml Sort" will be installed in your user home path. P
 
 == Rails Rake Taks
 
-Declare it as a dependency in your Gemfile, under the development group:
+Declare it as a dependency in your app Gemfile, under the development group:
 
   gem 'i18n_yaml_sorter', :group => :development
 
@@ -210,12 +210,6 @@ Now run the rake task under your Rails' app to sort all the i18n files in your +
     $ sort_yaml < in.yml > out.yml
 
 TODO: Add command line arguments parsing and options, so you can, for instance, sort a whole dir of yaml files.
-
-== Rake task
-
-If you don't use textmate, it should be trivial to add a rake task to sort all the i18n yaml files of a rails app (eg.: in the dir config/locale/ ), using the +sort_yaml+ command. 
-
-TODO: Write the code here once I have time!
 
 == Changelog
 
